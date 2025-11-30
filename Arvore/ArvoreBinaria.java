@@ -7,7 +7,7 @@ public class ArvoreBinaria {
     Node root;
     int size;
 
-    public ArvoreBinaria(Object O) {
+    public ArvoreBinaria(int O) {
         root = new Node(O, null, null, null);
         size = 1;
     }
@@ -18,12 +18,12 @@ public class ArvoreBinaria {
 
     public static class Node {
 
-        Object value;
+        int value;
         Node left;
         Node right;
         Node parent;
 
-        public Node(Object O, Node left, Node right, Node parent) {
+        public Node(int O, Node left, Node right, Node parent) {
 
             this.value = O;
             this.left = left;
@@ -56,12 +56,13 @@ public class ArvoreBinaria {
         }
         return false;
     }
-	public boolean isInternal(Node O){
-		if((O.left != null) || (O.right != null)){
-			return true;
-		}
-		return false;
-	}
+
+    public boolean isInternal(Node O) {
+        if ((O.left != null) || (O.right != null)) {
+            return true;
+        }
+        return false;
+    }
 
     public Node leftChild(Node O) {
         if (O.left == null) {
@@ -97,25 +98,74 @@ public class ArvoreBinaria {
         }
         return true;
     }
-	public Node parent(Node O){
-		if(isRoot(O)){
-			throw new ArvoreBinexcecao("O nó informado é root.");
-		}
-		return O.parent;
-	}
-	public Iterator children(Node O){
-		ArrayList<Node> iterator = new ArrayList<>();
-		if(isExternal(O)){
-			throw new ArvoreBinexcecao("O nó informado é nó folha.");
-		}
-		if(hasLeft(O)){
-			iterator.add(leftChild(O));
-		}
-		if(hasRight(O)){
-			iterator.add(rightChild(O));
-		}
-		return iterator.iterator();
-	}
-	/* falta height, elements, nos e replace */
 
+    public Node parent(Node O) {
+        if (isRoot(O)) {
+            throw new ArvoreBinexcecao("O nó informado é root.");
+        }
+        return O.parent;
+    }
+
+    public Iterator children(Node O) {
+        ArrayList<Node> iterator = new ArrayList<>();
+        if (isExternal(O)) {
+            throw new ArvoreBinexcecao("O nó informado é nó folha.");
+        }
+        if (hasLeft(O)) {
+            iterator.add(leftChild(O));
+        }
+        if (hasRight(O)) {
+            iterator.add(rightChild(O));
+        }
+        return iterator.iterator();
+    }
+
+    /* falta, elements, nos e replace */
+    public int height(Node O) {
+        int h = 0;
+        if (isExternal(O)) {
+            return 0;
+        } else {
+            if (O.left != null) {
+                h = Math.max(h, height(O.left));
+            }
+            if (O.right != null) {
+                h = Math.max(h, height(O.right));
+            }
+        }
+        return 1 + h;
+    }
+
+    public int comparar(Node O, Node V){
+        if(O.value > V.value){
+            return 1;
+        }
+         if(O.value < V.value){
+            return -1;
+        }
+        return 0;
+    }
+    public Node busca(Node O, int chave){
+        if (chave == O.value){
+            return O;
+        }
+        if((O.value > chave)&&(hasLeft(O))){
+            return busca(leftChild(O), chave);
+        }
+        if((O.value < chave)&&(hasRight(O))){
+            return busca(rightChild(O), chave);
+        }
+      return O;
+    }
+    public void insert(Node O) {
+        if(root == null){
+            root = O;
+            size ++;
+        }
+        else{
+            if(O.value < root.value){
+
+            }
+        }
+    }
 }
