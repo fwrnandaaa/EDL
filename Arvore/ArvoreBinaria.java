@@ -7,8 +7,8 @@ public class ArvoreBinaria {
     Node root;
     int size;
 
-    public ArvoreBinaria(int O) {
-        root = new Node(O, null, null, null);
+    public ArvoreBinaria() {
+        root = null;
         size = 1;
     }
 
@@ -23,12 +23,12 @@ public class ArvoreBinaria {
         Node right;
         Node parent;
 
-        public Node(int O, Node left, Node right, Node parent) {
+        public Node(int O) {
 
             this.value = O;
-            this.left = left;
-            this.right = right;
-            this.parent = parent;
+            this.left = null;
+            this.right = null;
+            this.parent = null;
         }
     }
 
@@ -136,36 +136,54 @@ public class ArvoreBinaria {
         return 1 + h;
     }
 
-    public int comparar(Node O, Node V){
-        if(O.value > V.value){
-            return 1;
-        }
-         if(O.value < V.value){
-            return -1;
-        }
-        return 0;
-    }
-    public Node busca(Node O, int chave){
-        if (chave == O.value){
+    public Node busca(Node O, int chave) { //
+        if (isExternal(O)) {
             return O;
         }
-        if((O.value > chave)&&(hasLeft(O))){
-            return busca(leftChild(O), chave);
-        }
-        if((O.value < chave)&&(hasRight(O))){
-            return busca(rightChild(O), chave);
-        }
-      return O;
-    }
-    public void insert(Node O) {
-        if(root == null){
-            root = O;
-            size ++;
-        }
-        else{
-            if(O.value < root.value){
-
+        if (chave < O.value) {
+            if (hasLeft(O)) {
+                return busca(O.left, chave); // tem filho esquerdo
+            } else {
+                return O;
             }
+        } else if (chave == O.value) {
+            return O; // achou o nó
+        } else if (chave > O.value) {
+            if (hasRight(O)) {
+                return busca(O.right, chave);
+            }
+            return O;
+        }
+        return O;
+    }
+
+    public void insert(Node O) {
+        if (root == null) {
+            root = O;
+            size++;
+            return;
+        }
+
+        Node aux = busca(root, O.value); // procurando o pai do nó O
+        if (aux.value == O.value) {
+            throw new ArvoreBinexcecao("A chave informada já existe na árvore.");
+        }
+        if (aux.value > O.value) {
+            aux.left = O;
+            size++;
+        } else {
+            aux.right = O;
+            size++;
         }
     }
+
+
+    public void inOrder(Node aux){ 
+        if(aux == null){
+            return;
+        }
+        inOrder(aux.left);
+        System.out.println(aux.value + " ");
+        inOrder(aux.right);
+        }
 }
