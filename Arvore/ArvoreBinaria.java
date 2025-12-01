@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.List;
+    /* falta elements, nos e replace */
 public class ArvoreBinaria {
 
     Node root;
@@ -17,7 +17,6 @@ public class ArvoreBinaria {
     }
 
     public static class Node {
-
         int value;
         Node left;
         Node right;
@@ -64,18 +63,18 @@ public class ArvoreBinaria {
         return false;
     }
 
-    public Node leftChild(Node O) {
+    public Integer leftChild(Node O) {
         if (O.left == null) {
             throw new ArvoreBinexcecao("O nó informado não possui filho esquerdo.");
         }
-        return O.left;
+        return O.left.value;
     }
 
-    public Node rightChild(Node O) {
+    public Integer rightChild(Node O) {
         if (O.right == null) {
             throw new ArvoreBinexcecao("O nó informado não possui filho direito.");
         }
-        return O.right;
+        return O.right.value;
     }
 
     public int depth(Node O) {
@@ -99,28 +98,27 @@ public class ArvoreBinaria {
         return true;
     }
 
-    public Node parent(Node O) {
+    public Integer parent(Node O) {
         if (isRoot(O)) {
             throw new ArvoreBinexcecao("O nó informado é root.");
         }
-        return O.parent;
+        return O.parent.value;
     }
 
-    public Iterator children(Node O) {
-        ArrayList<Node> iterator = new ArrayList<>();
+    public List children(Node O) {
+        List<Integer> lista = new ArrayList<>();
         if (isExternal(O)) {
             throw new ArvoreBinexcecao("O nó informado é nó folha.");
         }
         if (hasLeft(O)) {
-            iterator.add(leftChild(O));
+            lista.add(O.left.value);
         }
         if (hasRight(O)) {
-            iterator.add(rightChild(O));
+            lista.add(O.right.value);
         }
-        return iterator.iterator();
+        return lista;
     }
 
-    /* falta, elements, nos e replace */
     public int height(Node O) {
         int h = 0;
         if (isExternal(O)) {
@@ -164,10 +162,11 @@ public class ArvoreBinaria {
             return;
         }
 
-        Node aux = busca(root, O.value); // procurando o pai do nó O
+        Node aux = busca(root, O.value); 
         if (aux.value == O.value) {
             throw new ArvoreBinexcecao("A chave informada já existe na árvore.");
         }
+        O.parent = aux;
         if (aux.value > O.value) {
             aux.left = O;
             size++;
@@ -177,13 +176,29 @@ public class ArvoreBinaria {
         }
     }
 
-
-    public void inOrder(Node aux){ 
-        if(aux == null){
+    private void auxiliar(Node O, Integer[] matriz, int aux) {
+        if (O == null || aux >= matriz.length) {
             return;
         }
-        inOrder(aux.left);
-        System.out.println(aux.value + " ");
-        inOrder(aux.right);
+       
+        auxiliar(O.left, matriz, aux * 2);
+        matriz[aux] = O.value;
+        auxiliar(O.right, matriz, aux * 2 + 1);
+    }
+
+    public void verArvore() {
+        int alturaArvore = height(root);
+        Integer[] matriz = new Integer[(int) Math.pow(2, alturaArvore+1)];
+        auxiliar(root, matriz, 1);
+        for (int i = 1; i < matriz.length; i++) {
+            if (matriz[i] == null) {
+                System.out.print("\t");
+            } else {
+                System.out.println(matriz[i]  + "\t");
+            }
+          
         }
+
+    }
+
 }
