@@ -17,11 +17,11 @@ public class ArvoreBTeste{
         v.insert(aux6);
         v.insert(aux7);
         
-        System.out.println("Pai do nó aux7 (75): " + v.parent(aux7));
+        System.out.println("Pai do nó aux7 (80): " + v.parent(aux6));
         System.out.println("Filho esquerdo do nó aux6(80): "+ v.leftChild(aux6));
         System.out.println("Altura da arvore: "+ v.height(aux1));
         System.out.println("Profundidade da arvore: "+ v.depth(aux1));
-
+        System.out.println("Filhos do root: "+ v.children(aux1));
         v.verArvore();
     }
 }

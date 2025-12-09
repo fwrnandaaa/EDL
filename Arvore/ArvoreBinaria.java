@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-    /* falta elements, nos e replace */
 public class ArvoreBinaria {
 
     Node root;
@@ -180,25 +179,36 @@ public class ArvoreBinaria {
         if (O == null || aux >= matriz.length) {
             return;
         }
-       
-        auxiliar(O.left, matriz, aux * 2);
         matriz[aux] = O.value;
+        auxiliar(O.left, matriz, aux * 2);
         auxiliar(O.right, matriz, aux * 2 + 1);
     }
-
+// TODO: Resolver impressão da arvore
     public void verArvore() {
+        int contador_linha = 0;
         int alturaArvore = height(root);
-        Integer[] matriz = new Integer[(int) Math.pow(2, alturaArvore+1)];
+        int tamanho = (int)Math.pow(2, alturaArvore+1);
+        Integer[] matriz = new Integer[tamanho];
         auxiliar(root, matriz, 1);
         for (int i = 1; i < matriz.length; i++) {
             if (matriz[i] == null) {
                 System.out.print("\t");
             } else {
-                System.out.println(matriz[i]  + "\t");
+                System.out.print(matriz[i]  + "\t");
             }
-          
+            if (i == (1 << (contador_linha + 1)) - 1) {
+                System.out.println();
+                contador_linha++;
         }
 
+        }
+    }
+
+    public void replace( Node O, int n){
+        O.value = n;
+    }
+    public void remove(Node O){
+        
     }
 
 }
