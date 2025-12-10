@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class ArvoreBinaria {
 
     Node root;
@@ -16,6 +17,7 @@ public class ArvoreBinaria {
     }
 
     public static class Node {
+
         int value;
         Node left;
         Node right;
@@ -161,7 +163,7 @@ public class ArvoreBinaria {
             return;
         }
 
-        Node aux = busca(root, O.value); 
+        Node aux = busca(root, O.value);
         if (aux.value == O.value) {
             throw new ArvoreBinexcecao("A chave informada já existe na árvore.");
         }
@@ -184,31 +186,81 @@ public class ArvoreBinaria {
         auxiliar(O.right, matriz, aux * 2 + 1);
     }
 // TODO: Resolver impressão da arvore
+
     public void verArvore() {
         int contador_linha = 0;
         int alturaArvore = height(root);
-        int tamanho = (int)Math.pow(2, alturaArvore+1);
+        int tamanho = (int) Math.pow(2, alturaArvore + 1);
         Integer[] matriz = new Integer[tamanho];
         auxiliar(root, matriz, 1);
         for (int i = 1; i < matriz.length; i++) {
             if (matriz[i] == null) {
                 System.out.print("\t");
             } else {
-                System.out.print(matriz[i]  + "\t");
+                System.out.print(matriz[i] + "\t");
             }
             if (i == (1 << (contador_linha + 1)) - 1) {
                 System.out.println();
                 contador_linha++;
-        }
+            }
 
         }
     }
 
-    public void replace( Node O, int n){
+    public void replace(Node O, int n) {
         O.value = n;
     }
-    public void remove(Node O){
+
+    public void remove(Node O) {
+        if (isRoot(O)) {
+            throw new ArvoreBinexcecao("O nó root não pode ser removido");
+        }
+        if (isExternal(O)) {
+
+            if (O.value > O.parent.value) {
+                O.parent.right = null;
+            } else {
+                O.parent.left = null;
+            }
+            size--;
+            return;
+        }
+        if (hasLeft(O) && !hasRight(O)) {
+            if (O == O.parent.left) {
+                O.parent.left = O.left;
+            } else {
+                O.parent.right = O.left;
+            }
+            O.left.parent = O.parent;
+            size--;
+            return;
+        }
+        if (hasRight(O) && !hasLeft(O)) {
+            if (O == O.parent.left) {
+                O.parent.left = O.right;
+            } else {
+                O.parent.right = O.parent;
+            }
+            O.right.parent = O.right;
+            size--;
+            return;
+        }
+        Node current = O.right;
+        while (hasLeft(current)) {
+            current = current.left;
+        }
+        O.value = current.value;
+        if (current == current.parent.left) {
+            current.parent.left = current.right;
+        } else {
+            current.parent.right = current.right;
+        }
+        if (hasRight(current)) {
+            current.right.parent = current.parent;
+        }
+        size--;
+    }
+    public void elements(){
         
     }
-
 }

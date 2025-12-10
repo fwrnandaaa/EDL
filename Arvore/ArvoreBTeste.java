@@ -23,5 +23,14 @@ public class ArvoreBTeste{
         System.out.println("Profundidade da arvore: "+ v.depth(aux1));
         System.out.println("Filhos do root: "+ v.children(aux1));
         v.verArvore();
+        System.out.println("Removendo nó folha");
+        v.remove(aux5);
+        v.verArvore();
+        System.out.println("Removendo nó com 1 filho");
+        v.remove(aux4);
+        v.verArvore();
+        System.out.println("removendo nó com 2 filhos");
+        v.remove(aux2);
+        v.verArvore();
     }
 }
