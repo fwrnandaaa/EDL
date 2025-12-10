@@ -177,35 +177,6 @@ public class ArvoreBinaria {
         }
     }
 
-    private void auxiliar(Node O, Integer[] matriz, int aux) {
-        if (O == null || aux >= matriz.length) {
-            return;
-        }
-        matriz[aux] = O.value;
-        auxiliar(O.left, matriz, aux * 2);
-        auxiliar(O.right, matriz, aux * 2 + 1);
-    }
-// TODO: Resolver impressão da arvore
-
-    public void verArvore() {
-        int contador_linha = 0;
-        int alturaArvore = height(root);
-        int tamanho = (int) Math.pow(2, alturaArvore + 1);
-        Integer[] matriz = new Integer[tamanho];
-        auxiliar(root, matriz, 1);
-        for (int i = 1; i < matriz.length; i++) {
-            if (matriz[i] == null) {
-                System.out.print("\t");
-            } else {
-                System.out.print(matriz[i] + "\t");
-            }
-            if (i == (1 << (contador_linha + 1)) - 1) {
-                System.out.println();
-                contador_linha++;
-            }
-
-        }
-    }
 
     public void replace(Node O, int n) {
         O.value = n;
@@ -260,7 +231,36 @@ public class ArvoreBinaria {
         }
         size--;
     }
-    public void elements(){
-        
+
+    public void elements(Node O) {
+        if (O == null) {
+            return;
+        }
+        if (O.left != null) {
+            elements(O.left);
+        }
+        System.out.println(" value: " + O.value);
+        if (O.parent == null) {
+            System.out.print(" É root");
+        } else {
+            System.out.print("Pai: " + O.parent.value);
+        }
+        if (O.right != null) {
+            elements(O.right);
+        }
+    }
+
+    public List<Integer> nodes(Node O, List<Integer> lista) {
+        if (O == null) {
+            return lista;
+        }
+        if (O.left != null) {
+            nodes(O.left, lista);
+        }
+        lista.add(O.value);
+        if (O.right != null) {
+            nodes(O.right, lista);
+        }
+        return lista;
     }
 }

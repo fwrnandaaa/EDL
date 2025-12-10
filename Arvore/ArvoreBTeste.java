@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArvoreBTeste{
     public static void main(String[] args){
         // criando arvore e nós
@@ -22,15 +26,16 @@ public class ArvoreBTeste{
         System.out.println("Altura da arvore: "+ v.height(aux1));
         System.out.println("Profundidade da arvore: "+ v.depth(aux1));
         System.out.println("Filhos do root: "+ v.children(aux1));
-        v.verArvore();
         System.out.println("Removendo nó folha");
         v.remove(aux5);
-        v.verArvore();
         System.out.println("Removendo nó com 1 filho");
         v.remove(aux4);
-        v.verArvore();
         System.out.println("removendo nó com 2 filhos");
         v.remove(aux2);
-        v.verArvore();
+        System.out.println("Testando a função elements");
+        v.elements(aux1);
+        System.out.println("Testando a função nodes");
+        List<Integer> lista = new ArrayList<>();
+        System.out.println(v.nodes(aux1, lista));
     }
 }
