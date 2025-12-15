@@ -1,0 +1,51 @@
+public class SequenciaTesteLL {
+    public static void main(String[] args) {
+        TadSequenciaLL v = new TadSequenciaLL();
+        TadSequenciaLL.Node aux1 = new TadSequenciaLL.Node(15);
+        TadSequenciaLL.Node aux2 = new TadSequenciaLL.Node(16);
+        TadSequenciaLL.Node aux3 = new TadSequenciaLL.Node(17);
+        TadSequenciaLL.Node aux4 = new TadSequenciaLL.Node(18);
+        TadSequenciaLL.Node aux5 = new TadSequenciaLL.Node(14);
+        TadSequenciaLL.Node aux6 = new TadSequenciaLL.Node(13);
+        TadSequenciaLL.Node aux7 = new TadSequenciaLL.Node(12);
+        TadSequenciaLL.Node aux8 = new TadSequenciaLL.Node(10);
+        TadSequenciaLL.Node aux9 = new TadSequenciaLL.Node(11);
+        TadSequenciaLL.Node aux10 = new TadSequenciaLL.Node(9);
+        v.insertFirst(aux1);
+        v.insertFirst(aux2);
+        v.insertFirst(aux3);
+        v.insertFirst(aux4);
+        v.verSequenciaLL();
+        System.out.println("before - elemento 16: " + v.before(aux2));
+        System.out.println("after - elemento 18: " + v.after(aux4));
+        System.out.println("Elemento no rank 2: " + v.elemAtRank(2));
+        System.out.println("--------- replace at rank ---------");
+        v.replaceAtRank(2, aux5);
+        v.verSequenciaLL();
+        System.out.println("--------- insert at rank ---------");
+        v.insertAtRank(3, aux6);
+        v.verSequenciaLL();
+        System.out.println("--------- remove at rank ---------");
+        v.removeAtRank(3);
+        v.verSequenciaLL();
+        System.out.println("atRank 1: " + v.atRank(1));
+        System.out.println("rankOf 'B': " + v.rankOf(aux6));
+        System.out.println("--------- insert last ---------");
+        v.insertLast(aux7);
+        v.verSequenciaLL();
+        System.out.println("--------- replace element ---------");
+        v.replaceElement(aux1, aux8);
+        v.verSequenciaLL();
+        System.out.println("--------- swap element ---------");
+        v.swapElements(aux7, aux3);
+        v.verSequenciaLL();
+        System.out.println("--------- insert before ---------");
+        v.insertBefore(aux7, aux9);
+        v.verSequenciaLL();
+        System.out.println("--------- insert after ---------");
+        v.insertAfter(aux9, aux10);
+        v.verSequenciaLL();
+        System.out.println("remove: " + v.remove(aux10));
+        v.verSequenciaLL();
+    }
+}
